@@ -77,3 +77,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.sdf
+PETool.v12.suo
