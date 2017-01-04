@@ -5,7 +5,8 @@
 #include "PETool.h"
 #include "FileInfoDlg.h"
 #include "afxdialogex.h"
-static CString g_strSubSystem[15] = { L"未知的子系统"
+static CString g_strSubSystem[15] = 
+{ L"未知的子系统"
 , L"不需要子系统（如驱动程序）"
 , L"Windows图形界面"
 , L"Windows控制台界面"

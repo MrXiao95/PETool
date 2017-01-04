@@ -349,4 +349,5 @@ void CPEToolDlg::LoadFile(CString& strPath)
 
 	m_fileInfoDlg.SetPeFileInfo(&m_pe);
 	m_peInfoDlg.SetPeStruct(&m_pe);
+    m_hexDlg.SetHexData((byte*)m_pe.m_pFileMem,m_pe.m_nFileSize);
 }

@@ -1,5 +1,6 @@
 #pragma once
-
+#include "afxwin.h"
+#include "HexEdit.h"
 
 // CHexDlg ¶Ô»°¿ò
 
@@ -23,4 +24,10 @@ protected:
 public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
+private:
+    CHexEdit m_editHex;
+public:
+    afx_msg void OnSize(UINT nType, int cx, int cy);
+    virtual BOOL OnInitDialog();
+    void SetHexData(byte* p, int len);
 };

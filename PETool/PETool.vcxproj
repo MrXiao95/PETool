@@ -105,6 +105,7 @@
     <ClInclude Include="FileHeadDlg.h" />
     <ClInclude Include="FileInfoDlg.h" />
     <ClInclude Include="HexDlg.h" />
+    <ClInclude Include="HexEdit.h" />
     <ClInclude Include="PE.h" />
     <ClInclude Include="PEInfoDlg.h" />
     <ClInclude Include="PETool.h" />
@@ -117,6 +118,7 @@
     <ClCompile Include="FileHeadDlg.cpp" />
     <ClCompile Include="FileInfoDlg.cpp" />
     <ClCompile Include="HexDlg.cpp" />
+    <ClCompile Include="HexEdit.cpp" />
     <ClCompile Include="PE.cpp" />
     <ClCompile Include="PEInfoDlg.cpp" />
     <ClCompile Include="PETool.cpp" />
