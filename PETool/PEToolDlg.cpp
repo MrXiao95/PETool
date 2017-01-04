@@ -11,6 +11,7 @@
 #define new DEBUG_NEW
 #endif
 
+#define TOOLBARHIGH 35
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -72,6 +73,8 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_COMMAND(IDM_MENU_IMPORTDESCRIPTOR, &CPEToolDlg::OnMenuImportdescriptor)
 	ON_COMMAND(IDM_MENU_DEBUGINFO, &CPEToolDlg::OnMenuDebuginfo)
 	ON_WM_DROPFILES()
+	ON_WM_SIZE()
+	ON_COMMAND(IDM_MENU_WEBSITE, &CPEToolDlg::OnMenuWebsite)
 END_MESSAGE_MAP()
 
 
@@ -116,7 +119,26 @@ BOOL CPEToolDlg::OnInitDialog()
     RepositionBars(AFX_IDW_CONTROLBAR_FIRST,AFX_IDW_CONTROLBAR_LAST, 0);
     CRect rt;
     GetClientRect(rt);
-    m_wndToolBar.MoveWindow(rt.left, rt.top, rt.right, 30);
+    m_wndToolBar.MoveWindow(rt.left, rt.top, rt.right, TOOLBARHIGH-5);
+	rt.top += TOOLBARHIGH;
+	m_tabView.Create(CMFCTabCtrl::STYLE_3D_VS2005, rt, this, 10010);
+	m_tabView.SetLocation(CMFCTabCtrl::LOCATION_TOP);
+	m_tabView.ModifyTabStyle(CMFCTabCtrl::STYLE_3D_ONENOTE);
+	m_tabView.EnableAutoColor(FALSE);
+	m_tabView.SetTabBorderSize(0);
+	m_tabView.HideSingleTab(FALSE);
+	m_tabView.EnableTabSwap(FALSE);
+	m_tabView.ShowWindow(SW_SHOW);
+	m_tabView.SetActiveTabBoldFont(TRUE);
+
+	m_fileInfoDlg.Create(IDD_DLG_FILEINFO, &m_tabView);
+	m_peInfoDlg.Create(IDD_DLG_PEINFO, &m_tabView);
+	m_hexDlg.Create(IDD_DLG_HEX, &m_tabView);
+
+
+	m_tabView.AddTab(&m_fileInfoDlg, L"文件信息");
+	m_tabView.AddTab(&m_peInfoDlg, L"PE结构");
+	m_tabView.AddTab(&m_hexDlg, L"十六进制");
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -170,10 +192,17 @@ HCURSOR CPEToolDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void CPEToolDlg::OnMenuAbout()
+void CPEToolDlg::OnSize(UINT nType, int cx, int cy)
 {
-	CAboutDlg dlgAbout;
-	dlgAbout.DoModal();
+	CDialogEx::OnSize(nType, cx, cy);
+
+	if (m_fileInfoDlg.m_hWnd)
+	{
+		CRect rt;
+		GetClientRect(rt);
+		rt.top += TOOLBARHIGH;
+		m_tabView.MoveWindow(rt);
+	}
 }
 
 BOOL CPEToolDlg::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult) 
@@ -264,6 +293,12 @@ void CPEToolDlg::OnMenuDebuginfo()
 
 }
 
+//关于
+void CPEToolDlg::OnMenuAbout()
+{
+	CAboutDlg dlgAbout;
+	dlgAbout.DoModal();
+}
 
 void CPEToolDlg::OnDropFiles(HDROP hDropInfo)
 {
@@ -289,4 +324,9 @@ void CPEToolDlg::OnDropFiles(HDROP hDropInfo)
 	DragFinish(hDropInfo);
 
 	CDialogEx::OnDropFiles(hDropInfo);
+}
+
+void CPEToolDlg::OnMenuWebsite()
+{
+	ShellExecute(NULL, _T("open"), L"http://www.dbgpro.com", NULL, NULL, SW_SHOW);
 }

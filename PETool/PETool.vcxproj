@@ -101,6 +101,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileInfoDlg.h" />
+    <ClInclude Include="HexDlg.h" />
+    <ClInclude Include="PEInfoDlg.h" />
     <ClInclude Include="PETool.h" />
     <ClInclude Include="PEToolDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -108,6 +111,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FileInfoDlg.cpp" />
+    <ClCompile Include="HexDlg.cpp" />
+    <ClCompile Include="PEInfoDlg.cpp" />
     <ClCompile Include="PETool.cpp" />
     <ClCompile Include="PEToolDlg.cpp" />
     <ClCompile Include="stdafx.cpp">

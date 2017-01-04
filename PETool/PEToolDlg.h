@@ -3,8 +3,9 @@
 //
 
 #pragma once
-
-
+#include "FileInfoDlg.h"
+#include "PEInfoDlg.h"
+#include "Hexdlg.h"
 // CPEToolDlg ¶Ô»°¿ò
 class CPEToolDlg : public CDialogEx
 {
@@ -29,9 +30,6 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
-
-private:
-    CToolBar m_wndToolBar;
 public:
 	afx_msg void OnMenuAbout();
 	afx_msg BOOL OnToolTipNotify(UINT id, NMHDR * pNMHDR, LRESULT * pResult);
@@ -43,4 +41,13 @@ public:
 	afx_msg void OnMenuImportdescriptor();
 	afx_msg void OnMenuDebuginfo();
 	afx_msg void OnDropFiles(HDROP hDropInfo);
+private:
+    CToolBar m_wndToolBar;
+	CMFCTabCtrl m_tabView;
+	CFileInfoDlg m_fileInfoDlg;
+	CPEInfoDlg m_peInfoDlg;
+	CHexDlg m_hexDlg;
+public:
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnMenuWebsite();
 };
