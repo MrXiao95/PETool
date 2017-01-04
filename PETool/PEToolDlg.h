@@ -32,4 +32,15 @@ protected:
 
 private:
     CToolBar m_wndToolBar;
+public:
+	afx_msg void OnMenuAbout();
+	afx_msg BOOL OnToolTipNotify(UINT id, NMHDR * pNMHDR, LRESULT * pResult);
+	afx_msg void OnMenuDoshead();
+	afx_msg void OnMenuFilehead();
+	afx_msg void OnMenuOpthead();
+	afx_msg void OnMenuDatadirectory();
+	afx_msg void OnMenuSectiontable();
+	afx_msg void OnMenuImportdescriptor();
+	afx_msg void OnMenuDebuginfo();
+	afx_msg void OnDropFiles(HDROP hDropInfo);
 };

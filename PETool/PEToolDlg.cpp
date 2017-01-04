@@ -62,6 +62,16 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_COMMAND(IDC_MENU_ABOUT, &CPEToolDlg::OnMenuAbout)
+	ON_NOTIFY_EX(TTN_NEEDTEXT, 0, OnToolTipNotify)
+	ON_COMMAND(IDC_MENU_DOSHEAD, &CPEToolDlg::OnMenuDoshead)
+	ON_COMMAND(IDM_MENU_FILEHEAD, &CPEToolDlg::OnMenuFilehead)
+	ON_COMMAND(IDM_MENU_OPTHEAD, &CPEToolDlg::OnMenuOpthead)
+	ON_COMMAND(IDM_MENU_DATADIRECTORY, &CPEToolDlg::OnMenuDatadirectory)
+	ON_COMMAND(IDM_MENU_SECTIONTABLE, &CPEToolDlg::OnMenuSectiontable)
+	ON_COMMAND(IDM_MENU_IMPORTDESCRIPTOR, &CPEToolDlg::OnMenuImportdescriptor)
+	ON_COMMAND(IDM_MENU_DEBUGINFO, &CPEToolDlg::OnMenuDebuginfo)
+	ON_WM_DROPFILES()
 END_MESSAGE_MAP()
 
 
@@ -103,11 +113,10 @@ BOOL CPEToolDlg::OnInitDialog()
     {
         EndDialog(IDCANCEL);
     }
-    RepositionBars(AFX_IDW_CONTROLBAR_FIRST, \
-        AFX_IDW_CONTROLBAR_LAST, 0);
+    RepositionBars(AFX_IDW_CONTROLBAR_FIRST,AFX_IDW_CONTROLBAR_LAST, 0);
     CRect rt;
     GetClientRect(rt);
-    m_wndToolBar.MoveWindow(rt.left, rt.top, rt.right, 25);
+    m_wndToolBar.MoveWindow(rt.left, rt.top, rt.right, 30);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -161,3 +170,123 @@ HCURSOR CPEToolDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CPEToolDlg::OnMenuAbout()
+{
+	CAboutDlg dlgAbout;
+	dlgAbout.DoModal();
+}
+
+BOOL CPEToolDlg::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult) 
+{
+	if (GetRoutingFrame() != NULL)
+	{
+		return FALSE;
+	}
+
+	TOOLTIPTEXTA* pTTTA = (TOOLTIPTEXTA*)pNMHDR;
+	TOOLTIPTEXTW* pTTTW = (TOOLTIPTEXTW*)pNMHDR;
+	TCHAR szFullText[512];
+	CString strTipText;
+	UINT nID = pNMHDR->idFrom;
+
+	if (pNMHDR->code == TTN_NEEDTEXTA && (pTTTA->uFlags & TTF_IDISHWND) ||
+		pNMHDR->code == TTN_NEEDTEXTW && (pTTTW->uFlags & TTF_IDISHWND))
+	{
+		nID = ::GetDlgCtrlID((HWND)nID);
+	}
+
+	if (nID != 0)
+	{
+		AfxLoadString(nID, szFullText);
+		strTipText = szFullText;
+
+		if (pNMHDR->code == TTN_NEEDTEXTA)
+		{
+			_wcstombsz(pTTTA->szText, strTipText, sizeof(pTTTA->szText));
+		}
+		else
+		{
+			lstrcpyn(pTTTW->szText, strTipText, sizeof(pTTTW->szText));
+		}
+
+		*pResult = 0;
+
+		::SetWindowPos(pNMHDR->hwndFrom, HWND_TOP, 0, 0, 0, 0, SWP_NOACTIVATE |SWP_NOSIZE | SWP_NOMOVE | SWP_NOOWNERZORDER); 
+	}
+	return TRUE;
+}
+
+//DOS头
+void CPEToolDlg::OnMenuDoshead()
+{
+	MessageBox(L"DOS头");
+}
+
+//标准PE头
+void CPEToolDlg::OnMenuFilehead()
+{
+	MessageBox(L"标准PE头");
+
+}
+
+//可选PE头
+void CPEToolDlg::OnMenuOpthead()
+{
+	MessageBox(L"可选PE头");
+
+}
+
+//数据目录表
+void CPEToolDlg::OnMenuDatadirectory()
+{
+	MessageBox(L"数据目录表");
+
+}
+
+//节表
+void CPEToolDlg::OnMenuSectiontable()
+{
+	MessageBox(L"节表");
+
+}
+
+//导入表
+void CPEToolDlg::OnMenuImportdescriptor()
+{
+	MessageBox(L"导入表");
+
+}
+
+//调试信息
+void CPEToolDlg::OnMenuDebuginfo()
+{
+	MessageBox(L"调试信息");
+
+}
+
+
+void CPEToolDlg::OnDropFiles(HDROP hDropInfo)
+{
+	int nCount;
+	TCHAR szFilePath[MAX_PATH] = { 0 };
+	nCount = DragQueryFile(hDropInfo, 0xFFFFFFFF, NULL, 0);
+	if (nCount == 1)
+	{
+		DragQueryFile(hDropInfo, 0, szFilePath, sizeof(szFilePath));
+		CString strExt = PathFindExtension(szFilePath);
+		if (strExt.CompareNoCase(L".dll") == 0 || strExt.CompareNoCase(L".exe") == 0)
+		{
+		}
+		else
+		{
+			MessageBox(L"只能加载可执行文件");
+		}
+	}
+	else
+	{
+		MessageBox(L"一次只能加载一个文件");
+	}
+	DragFinish(hDropInfo);
+
+	CDialogEx::OnDropFiles(hDropInfo);
+}
