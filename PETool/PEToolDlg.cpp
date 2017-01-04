@@ -6,6 +6,8 @@
 #include "PETool.h"
 #include "PEToolDlg.h"
 #include "afxdialogex.h"
+#include <string>
+using namespace std;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -121,6 +123,9 @@ BOOL CPEToolDlg::OnInitDialog()
     GetClientRect(rt);
     m_wndToolBar.MoveWindow(rt.left, rt.top, rt.right, TOOLBARHIGH-5);
 	rt.top += TOOLBARHIGH;
+	rt.bottom -= 2;
+	rt.left += 2;
+	rt.right += 2;
 	m_tabView.Create(CMFCTabCtrl::STYLE_3D_VS2005, rt, this, 10010);
 	m_tabView.SetLocation(CMFCTabCtrl::LOCATION_TOP);
 	m_tabView.ModifyTabStyle(CMFCTabCtrl::STYLE_3D_ONENOTE);
@@ -201,6 +206,10 @@ void CPEToolDlg::OnSize(UINT nType, int cx, int cy)
 		CRect rt;
 		GetClientRect(rt);
 		rt.top += TOOLBARHIGH;
+		rt.bottom -= 2;
+		rt.left += 2;
+		rt.right += 2;
+
 		m_tabView.MoveWindow(rt);
 	}
 }
@@ -311,6 +320,7 @@ void CPEToolDlg::OnDropFiles(HDROP hDropInfo)
 		CString strExt = PathFindExtension(szFilePath);
 		if (strExt.CompareNoCase(L".dll") == 0 || strExt.CompareNoCase(L".exe") == 0)
 		{
+			LoadFile(CString(szFilePath));
 		}
 		else
 		{
@@ -329,4 +339,14 @@ void CPEToolDlg::OnDropFiles(HDROP hDropInfo)
 void CPEToolDlg::OnMenuWebsite()
 {
 	ShellExecute(NULL, _T("open"), L"http://www.dbgpro.com", NULL, NULL, SW_SHOW);
+}
+
+void CPEToolDlg::LoadFile(CString& strPath)
+{
+	string sttTmp = CStringA(strPath);
+	m_pe.ReadPeFile(sttTmp.data());
+
+	FILEINFO fileInfo;
+
+	m_fileInfoDlg.SetPeFileInfo(&m_pe);
 }

@@ -88,3 +88,4 @@ PETool.VC.db
 /PETool/Debug/*
 PETool.VC.VC.opendb
 *.aps
+*.suo

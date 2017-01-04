@@ -1,7 +1,7 @@
 #pragma once
 #include "afxwin.h"
-
-
+#include "Definition.h"
+#include "pe.h"
 // CFileInfoDlg ¶Ô»°¿ò
 
 class CFileInfoDlg : public CDialogEx
@@ -25,6 +25,10 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	virtual BOOL OnInitDialog();
+	BOOL SetPeFileInfo(CPE* pe);
 private:
 	CEdit m_editFileInfo;
+	CString m_strFileInfo;
+	CString m_strSubSystem[15];
 };

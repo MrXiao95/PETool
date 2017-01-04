@@ -6,6 +6,9 @@
 #include "FileInfoDlg.h"
 #include "PEInfoDlg.h"
 #include "Hexdlg.h"
+#include "PE.h"
+
+
 // CPEToolDlg ¶Ô»°¿ò
 class CPEToolDlg : public CDialogEx
 {
@@ -41,13 +44,15 @@ public:
 	afx_msg void OnMenuImportdescriptor();
 	afx_msg void OnMenuDebuginfo();
 	afx_msg void OnDropFiles(HDROP hDropInfo);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnMenuWebsite();
+private:
+	void LoadFile(CString& strPath);
 private:
     CToolBar m_wndToolBar;
 	CMFCTabCtrl m_tabView;
 	CFileInfoDlg m_fileInfoDlg;
 	CPEInfoDlg m_peInfoDlg;
 	CHexDlg m_hexDlg;
-public:
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg void OnMenuWebsite();
+	CPE m_pe;
 };
