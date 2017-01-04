@@ -79,3 +79,12 @@ $RECYCLE.BIN/
 *.lnk
 *.sdf
 PETool.v12.suo
+*.ilk
+Debug/PETool.pdb
+*.ipch
+PETool.VC.db
+/Debug/*
+/ipch/*
+/PETool/Debug/*
+PETool.VC.VC.opendb
+*.aps
