@@ -1,5 +1,6 @@
 #pragma once
-
+#include "afxwin.h"
+#include "PE.h"
 
 // CPEFileInfo ¶Ô»°¿ò
 
@@ -23,4 +24,9 @@ protected:
 public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedCancel();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	void SetPeStruct(CPE *pe);
+private:
+	CString m_strPeStruct;
+	CEdit m_editPE;
 };

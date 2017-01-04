@@ -26,7 +26,7 @@ public:
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	virtual BOOL OnInitDialog();
-	BOOL SetPeFileInfo(CPE* pe);
+	void SetPeFileInfo(CPE* pe);
 private:
 	CEdit m_editFileInfo;
 	CString m_strFileInfo;

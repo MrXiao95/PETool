@@ -110,7 +110,7 @@ DWORD CPE::RvaToRaw(DWORD dwRva)
 	}
 	for (int i = 0; i < m_nSection; i++)
 	{
-		if (dwRaw >= m_pSection[i].VirtualAddress && dwRaw <= m_pSection[i].VirtualAddress+m_pSection[i].SizeOfRawData)
+		if (dwRaw >= m_pSection[i].VirtualAddress && dwRaw <= m_pSection[i].VirtualAddress + m_pSection[i].SizeOfRawData)
 		{
 			dwRaw += m_pSection[i].PointerToRawData;
 			break;
@@ -122,6 +122,23 @@ DWORD CPE::RvaToRaw(DWORD dwRva)
 DWORD CPE::RawToRva(DWORD dwRaw)
 {
 	DWORD dwRva = 0;
+	DWORD dwImageBase = 0;
+	if (m_pOptionalHeader32)
+	{
+		dwImageBase = m_pOptionalHeader32->ImageBase;
+	}
+	else
+	{
+		dwImageBase = m_pOptionalHeader64->ImageBase;
+	}
 
+	for (int i=0;i<m_nSection;i++)
+	{
+		if (dwRaw>=m_pSection[i].PointerToRawData && dwRaw<=m_pSection[i].PointerToRawData + m_pSection[i].SizeOfRawData)
+		{
+			dwRva = dwRaw - m_pSection[i].PointerToRawData + dwImageBase;
+			break;
+		}
+	}
 	return dwRva;
 }

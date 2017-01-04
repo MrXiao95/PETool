@@ -6,6 +6,7 @@
 #include "PETool.h"
 #include "PEToolDlg.h"
 #include "afxdialogex.h"
+#include "FileHeadDlg.h"
 #include <string>
 using namespace std;
 
@@ -13,7 +14,7 @@ using namespace std;
 #define new DEBUG_NEW
 #endif
 
-#define TOOLBARHIGH 35
+#define TOOLBARHIGH 30
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -263,8 +264,8 @@ void CPEToolDlg::OnMenuDoshead()
 //标准PE头
 void CPEToolDlg::OnMenuFilehead()
 {
-	MessageBox(L"标准PE头");
-
+	CFileHeadDlg dlg;
+	dlg.DoModal();
 }
 
 //可选PE头
@@ -346,7 +347,6 @@ void CPEToolDlg::LoadFile(CString& strPath)
 	string sttTmp = CStringA(strPath);
 	m_pe.ReadPeFile(sttTmp.data());
 
-	FILEINFO fileInfo;
-
 	m_fileInfoDlg.SetPeFileInfo(&m_pe);
+	m_peInfoDlg.SetPeStruct(&m_pe);
 }

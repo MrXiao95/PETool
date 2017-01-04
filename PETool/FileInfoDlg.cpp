@@ -95,13 +95,13 @@ BOOL CFileInfoDlg::OnInitDialog()
 				  // 异常: OCX 属性页应返回 FALSE
 }
 
-BOOL CFileInfoDlg::SetPeFileInfo(CPE* pe)
+void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 {
 	CString strTmp;
 	m_strFileInfo = L"\r\n";
 	m_strFileInfo += L"================================================================================================\r\n";
 	//文件路径
-	strTmp.Format(L"文件路径：%s\r\n",CString(pe->m_szPath));
+	strTmp.Format(L"文件路径               ：%s\r\n\r\n",CString(pe->m_szPath));
 	strTmp.Replace(L"\\",L"\\\\");
 	m_strFileInfo += strTmp;
 	//文件创建时间
@@ -109,46 +109,52 @@ BOOL CFileInfoDlg::SetPeFileInfo(CPE* pe)
 	tm tmBegin;
 	localtime_s(&tmBegin, &timeDateStamp);
 
-	strTmp.Format(L"文件创建时间：%04d.%02d.%02d     %02d:%02d:%02d\r\n"
+	strTmp.Format(L"文件创建时间       ：%04d.%02d.%02d     %02d:%02d:%02d\r\n"
 		, tmBegin.tm_year+1900,tmBegin.tm_mon+1,tmBegin.tm_mday
 		,tmBegin.tm_hour,tmBegin.tm_min,tmBegin.tm_sec);
 
 	m_strFileInfo += strTmp;
 	//文件大小
-	strTmp.Format(L"文件大小：%d 字节\r\n",pe->m_nFileSize);
+	strTmp.Format(L"文件大小               ：%d 字节\r\n",pe->m_nFileSize);
 	m_strFileInfo += strTmp;
 	//运行平台
 	if (pe->m_pOptionalHeader32)
 	{
-		m_strFileInfo += L"运行平台：Windows32位\r\n";
+		m_strFileInfo += L"运行平台               ：Windows32位\r\n";
 	}
 	else
 	{
-		m_strFileInfo += L"运行平台：Windows64位\r\n";
+		m_strFileInfo += L"运行平台               ：Windows64位\r\n";
 	}
 	//PE文件头地址
-	strTmp.Format(L"PE文件头地址：0x%08x\r\n",pe->m_pDosHead->e_lfanew);
+	strTmp.Format(L"PE文件头地址       ：0x%08x\r\n",pe->m_pDosHead->e_lfanew);
 	m_strFileInfo += strTmp;
 	//基地址 入口点EP(RVA)
 	DWORD dwEntryPoint = 0;
 	WORD dwSubsystem;
 	if (pe->m_pOptionalHeader32)
 	{ 
-		strTmp.Format(L"基地址：0x%08x\r\n", pe->m_pOptionalHeader32->ImageBase);
+		strTmp.Format(L"基地址                   ：0x%08x\r\n", pe->m_pOptionalHeader32->ImageBase);
+		strTmp.MakeUpper();
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点EP(RVA)：0x%08x\r\n", pe->m_pOptionalHeader32->AddressOfEntryPoint);
+		strTmp.Format(L"入口点EP(RVA)      ：0x%08x\r\n", pe->m_pOptionalHeader32->AddressOfEntryPoint);
+		strTmp.MakeUpper();
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点OEP(RAW)：0x%08x\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader32->AddressOfEntryPoint));
+		strTmp.Format(L"入口点OEP(RAW)  ：0x%08x\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader32->AddressOfEntryPoint));
+		strTmp.MakeUpper();
 		dwSubsystem = pe->m_pOptionalHeader32->Subsystem;
 		m_strFileInfo += strTmp;
 	}
 	else
 	{
-		strTmp.Format(L"基地址：0x%08x\r\n", pe->m_pOptionalHeader64->ImageBase);
+		strTmp.Format(L"基地址                   ：0x%08x\r\n", pe->m_pOptionalHeader64->ImageBase);
+		strTmp.MakeUpper();
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点EP(RVA)：0x%08x\r\n", pe->m_pOptionalHeader64->AddressOfEntryPoint);
+		strTmp.Format(L"入口点EP(RVA)      ：0x%08x\r\n", pe->m_pOptionalHeader64->AddressOfEntryPoint);
+		strTmp.MakeUpper();
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点OEP(RAW)：0x%08x\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader64->AddressOfEntryPoint));
+		strTmp.Format(L"入口点OEP(RAW)  ：0x%08x\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader64->AddressOfEntryPoint));
+		strTmp.MakeUpper();
 		dwSubsystem = pe->m_pOptionalHeader64->Subsystem;
 		m_strFileInfo += strTmp;
 	}
@@ -159,18 +165,17 @@ BOOL CFileInfoDlg::SetPeFileInfo(CPE* pe)
 		{
 			char szName[9] = {0};
 			memcpy(szName, pe->m_pSection[i].Name,8);
-			strTmp.Format(L"入口点EP所在节：[%s] [%d / %d]", CString(szName),i+1, pe->m_nSection);
+			strTmp.Format(L"入口点EP所在节   ：[%s] [%d / %d]\r\n", CString(szName),i+1, pe->m_nSection);
 			m_strFileInfo += strTmp;
 			break;
 		}
 	}
 	//区段数目
-	strTmp.Format(L"区段数目:%d\r\n",  pe->m_nSection);
+	strTmp.Format(L"区段数目               ：%d\r\n",  pe->m_nSection);
 	m_strFileInfo += strTmp;
 	//子系统
-	strTmp.Format(L"子系统:%s\r\n", m_strSubSystem[dwSubsystem]);
+	strTmp.Format(L"子系统                   ：%s\r\n", m_strSubSystem[dwSubsystem]);
 	m_strFileInfo += strTmp;
 	m_strFileInfo += L"================================================================================================\r\n";
 	UpdateData(FALSE);
-	return TRUE;
 }
