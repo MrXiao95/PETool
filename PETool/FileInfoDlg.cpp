@@ -5,7 +5,21 @@
 #include "PETool.h"
 #include "FileInfoDlg.h"
 #include "afxdialogex.h"
-
+static CString g_strSubSystem[15] = { L"未知的子系统"
+, L"不需要子系统（如驱动程序）"
+, L"Windows图形界面"
+, L"Windows控制台界面"
+, L"未知"
+, L"OS/2控制台"
+, L"未知"
+, L"POSIX控制台界面"
+, L"不需要子系统"
+, L"Windows CE图形界面"
+, L"EFI应用程序"
+, L"EFI引导服务设备"
+, L"EFI运行时间驱动"
+, L"EFI只读存储器"
+, L"X-Box" };
 // CFileInfoDlg 对话框
 
 IMPLEMENT_DYNAMIC(CFileInfoDlg, CDialogEx)
@@ -13,23 +27,8 @@ IMPLEMENT_DYNAMIC(CFileInfoDlg, CDialogEx)
 CFileInfoDlg::CFileInfoDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_DLG_FILEINFO, pParent)
 	, m_strFileInfo(_T(""))
-	, m_strSubSystem{ L"未知的子系统"
-	,L"不需要子系统（如驱动程序）" 
-	,L"Windows图形界面"
-	,L"Windows控制台界面" 
-	,L"未知"
-	,L"OS/2控制台"
-	,L"未知"
-	,L"POSIX控制台界面" 
-	,L"不需要子系统"
-	,L"Windows CE图形界面"
-	,L"EFI应用程序"
-	,L"EFI引导服务设备" 
-	,L"EFI运行时间驱动" 
-	,L"EFI只读存储器"
-	,L"X-Box" }
-{
 
+{
 }
 
 CFileInfoDlg::~CFileInfoDlg()
@@ -174,7 +173,7 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 	strTmp.Format(L"区段数目               ：%d\r\n",  pe->m_nSection);
 	m_strFileInfo += strTmp;
 	//子系统
-	strTmp.Format(L"子系统                   ：%s\r\n", m_strSubSystem[dwSubsystem]);
+	strTmp.Format(L"子系统                   ：%s\r\n", g_strSubSystem[dwSubsystem]);
 	m_strFileInfo += strTmp;
 	m_strFileInfo += L"================================================================================================\r\n";
 	UpdateData(FALSE);

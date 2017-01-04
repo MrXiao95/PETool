@@ -30,5 +30,4 @@ public:
 private:
 	CEdit m_editFileInfo;
 	CString m_strFileInfo;
-	CString m_strSubSystem[15];
 };
