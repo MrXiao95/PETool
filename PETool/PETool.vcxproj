@@ -101,6 +101,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataDirectory.h" />
     <ClInclude Include="Definition.h" />
     <ClInclude Include="DosHeaderDlg.h" />
     <ClInclude Include="FileHeadDlg.h" />
@@ -112,10 +113,12 @@
     <ClInclude Include="PETool.h" />
     <ClInclude Include="PEToolDlg.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SectionHeadDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataDirectory.cpp" />
     <ClCompile Include="DosHeaderDlg.cpp" />
     <ClCompile Include="FileHeadDlg.cpp" />
     <ClCompile Include="FileInfoDlg.cpp" />
@@ -125,6 +128,7 @@
     <ClCompile Include="PEInfoDlg.cpp" />
     <ClCompile Include="PETool.cpp" />
     <ClCompile Include="PEToolDlg.cpp" />
+    <ClCompile Include="SectionHeadDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

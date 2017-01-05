@@ -62,12 +62,12 @@ void CPE::GetPeStruct()
 	if (m_pFileHead->Machine == IMAGE_FILE_MACHINE_I386)
 	{
 		m_pOptionalHeader32 = (IMAGE_OPTIONAL_HEADER32*)((byte*)m_pFileMem + m_pDosHead->e_lfanew + sizeof(DWORD) + sizeof(IMAGE_FILE_HEADER));
-		m_pSection = (IMAGE_SECTION_HEADER *)((byte*)m_pOptionalHeader32 + m_pFileHead->SizeOfOptionalHeader);
+		m_pSectionHead = (IMAGE_SECTION_HEADER *)((byte*)m_pOptionalHeader32 + m_pFileHead->SizeOfOptionalHeader);
 	}
 	else if (m_pFileHead->Machine == IMAGE_FILE_MACHINE_IA64 || m_pFileHead->Machine == IMAGE_FILE_MACHINE_AMD64)
 	{
 		m_pOptionalHeader64 = (IMAGE_OPTIONAL_HEADER64*)((byte*)m_pFileMem + m_pDosHead->e_lfanew + sizeof(DWORD) + sizeof(IMAGE_FILE_HEADER));
-		m_pSection = (IMAGE_SECTION_HEADER *)((byte*)m_pOptionalHeader64 + m_pFileHead->SizeOfOptionalHeader);
+		m_pSectionHead = (IMAGE_SECTION_HEADER *)((byte*)m_pOptionalHeader64 + m_pFileHead->SizeOfOptionalHeader);
 	}
 	m_nSection = m_pFileHead->NumberOfSections;
 }
@@ -79,7 +79,7 @@ void CPE::Clear()
 	m_pFileHead = NULL;
 	m_pOptionalHeader32 = NULL;
 	m_pOptionalHeader64 = NULL;
-	m_pSection = NULL;
+	m_pSectionHead = NULL;
 	m_nSection = 0;
 	m_nFileSize = 0;
 }
@@ -91,7 +91,7 @@ void CPE::Init()
 	m_pFileHead = NULL;
 	m_pOptionalHeader32 = NULL;
 	m_pOptionalHeader64 = NULL;
-	m_pSection = NULL;
+	m_pSectionHead = NULL;
 	m_nSection = 0;
 	m_nFileSize = 0;
 	memset(m_szPath, 0, MAX_PATH);
@@ -110,9 +110,9 @@ DWORD CPE::RvaToRaw(DWORD dwRva)
 	}
 	for (int i = 0; i < m_nSection; i++)
 	{
-		if (dwRaw >= m_pSection[i].VirtualAddress && dwRaw <= m_pSection[i].VirtualAddress + m_pSection[i].SizeOfRawData)
+		if (dwRaw >= m_pSectionHead[i].VirtualAddress && dwRaw <= m_pSectionHead[i].VirtualAddress + m_pSectionHead[i].SizeOfRawData)
 		{
-			dwRaw += m_pSection[i].PointerToRawData;
+			dwRaw += m_pSectionHead[i].PointerToRawData;
 			break;
 		}
 	}
@@ -134,9 +134,9 @@ DWORD CPE::RawToRva(DWORD dwRaw)
 
 	for (int i=0;i<m_nSection;i++)
 	{
-		if (dwRaw>=m_pSection[i].PointerToRawData && dwRaw<=m_pSection[i].PointerToRawData + m_pSection[i].SizeOfRawData)
+		if (dwRaw>=m_pSectionHead[i].PointerToRawData && dwRaw<=m_pSectionHead[i].PointerToRawData + m_pSectionHead[i].SizeOfRawData)
 		{
-			dwRva = dwRaw - m_pSection[i].PointerToRawData + dwImageBase;
+			dwRva = dwRaw - m_pSectionHead[i].PointerToRawData + dwImageBase;
 			break;
 		}
 	}

@@ -16,7 +16,7 @@ public:
 	IMAGE_FILE_HEADER *m_pFileHead;//标准pe头
 	IMAGE_OPTIONAL_HEADER32 *m_pOptionalHeader32;//32位的可选PE头
 	IMAGE_OPTIONAL_HEADER64 *m_pOptionalHeader64;//64位的可选PE头
-	IMAGE_SECTION_HEADER *m_pSection;//区块表
+	IMAGE_SECTION_HEADER *m_pSectionHead;//区块表
 	int m_nSection;//区块个数
 	int m_nFileSize;//文件大小
 	char m_szPath[MAX_PATH];//文件路径

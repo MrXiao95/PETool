@@ -163,10 +163,10 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 	//入口点EP所在节
 	for (int i = 0; i < pe->m_nSection; i++)
 	{
-		if (dwEntryPoint >= pe->m_pSection[i].VirtualAddress && dwEntryPoint <= pe->m_pSection[i].VirtualAddress + pe->m_pSection[i].SizeOfRawData)
+		if (dwEntryPoint >= pe->m_pSectionHead[i].VirtualAddress && dwEntryPoint <= pe->m_pSectionHead[i].VirtualAddress + pe->m_pSectionHead[i].SizeOfRawData)
 		{
 			char szName[9] = {0};
-			memcpy(szName, pe->m_pSection[i].Name,8);
+			memcpy(szName, pe->m_pSectionHead[i].Name,8);
 			strTmp.Format(L"入口点EP所在节   ：[%s] [%d / %d]\r\n", CString(szName),i+1, pe->m_nSection);
 			m_strFileInfo += strTmp;
 			break;
@@ -177,7 +177,7 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 	for (int i = 0; i < pe->m_nSection; i++)
 	{
 		CString strName;
-		strName.Format(L"    [%s]", CString(pe->m_pSection[i].Name));
+		strName.Format(L"    [%s]", CString(pe->m_pSectionHead[i].Name));
 		strSecNames += strName;
 	}
 	strTmp.Format(L"区段数目               ：%d个\t%s\r\n",  pe->m_nSection,strSecNames);

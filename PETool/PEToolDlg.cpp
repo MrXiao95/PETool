@@ -8,6 +8,8 @@
 #include "afxdialogex.h"
 #include "FileHeadDlg.h"
 #include "DosHeaderDlg.h"
+#include "SectionHeadDlg.h"
+#include "DataDirectory.h"
 #include <string>
 using namespace std;
 
@@ -284,15 +286,30 @@ void CPEToolDlg::OnMenuOpthead()
 //数据目录表
 void CPEToolDlg::OnMenuDatadirectory()
 {
-	MessageBox(L"数据目录表");
-
+	CDataDirectory dlg;
+	if (m_pe.m_pOptionalHeader32)
+	{
+		dlg.SetDataDirectory(m_pe.m_pOptionalHeader32->DataDirectory);
+		dlg.DoModal();
+	}
+	else if (m_pe.m_pOptionalHeader64)
+	{
+		dlg.SetDataDirectory(m_pe.m_pOptionalHeader64->DataDirectory);
+		dlg.DoModal();
+	}
+	else
+	{
+		dlg.SetDataDirectory(NULL);
+		dlg.DoModal();
+	}
 }
 
 //节表
 void CPEToolDlg::OnMenuSectiontable()
 {
-	MessageBox(L"节表");
-
+	CSectionHeadDlg dlg;
+	dlg.SetSetcionHead(m_pe.m_pSectionHead,m_pe.m_nSection);
+	dlg.DoModal();
 }
 
 //导入表

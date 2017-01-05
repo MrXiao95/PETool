@@ -57,6 +57,12 @@
     <ClInclude Include="DosHeaderDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SectionHeadDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DataDirectory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PETool.cpp">
@@ -87,6 +93,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DosHeaderDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SectionHeadDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DataDirectory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
