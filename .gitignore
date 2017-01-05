@@ -23,7 +23,7 @@
 *.lib
 
 # Executables
-*.exe
+#*.exe
 *.out
 *.app
 
@@ -86,7 +86,11 @@ PETool.VC.db
 /Debug/*
 /ipch/*
 /PETool/Debug/*
+/PETool/Release/*
 PETool.VC.VC.opendb
 *.aps
 *.suo
 *.opensdf
+*.iobj
+Release/PETool.ipdb
+*.pdb
