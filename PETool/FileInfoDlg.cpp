@@ -101,8 +101,7 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 	m_strFileInfo = L"\r\n";
 	m_strFileInfo += L"================================================================================================\r\n";
 	//文件路径
-	strTmp.Format(L"文件路径               ：%s\r\n\r\n",CString(pe->m_szPath));
-	strTmp.Replace(L"\\",L"\\\\");
+	strTmp.Format(L"文件路径               ：\"%s\"\r\n\r\n",CString(pe->m_szPath));
 	m_strFileInfo += strTmp;
 	//文件创建时间
 	time_t timeDateStamp = pe->m_pFileHead->TimeDateStamp;
@@ -158,6 +157,7 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 		dwSubsystem = pe->m_pOptionalHeader64->Subsystem;
 		m_strFileInfo += strTmp;
 	}
+	
 	//入口点EP所在节
 	for (int i = 0; i < pe->m_nSection; i++)
 	{
@@ -171,7 +171,14 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 		}
 	}
 	//区段数目
-	strTmp.Format(L"区段数目               ：%d\r\n",  pe->m_nSection);
+	CString strSecNames;
+	for (int i = 0; i < pe->m_nSection; i++)
+	{
+		CString strName;
+		strName.Format(L"    [%s]", CString(pe->m_pSection[i].Name));
+		strSecNames += strName;
+	}
+	strTmp.Format(L"区段数目               ：%d个\t%s\r\n",  pe->m_nSection,strSecNames);
 	m_strFileInfo += strTmp;
 	//子系统
 	strTmp.Format(L"子系统                   ：%s\r\n", g_strSubSystem[dwSubsystem]);

@@ -78,6 +78,8 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_WM_DROPFILES()
 	ON_WM_SIZE()
 	ON_COMMAND(IDM_MENU_WEBSITE, &CPEToolDlg::OnMenuWebsite)
+	ON_COMMAND(IDM_MENU_OPEN, &CPEToolDlg::OnMenuOpen)
+	ON_COMMAND(IDM_MENU_EXIT, &CPEToolDlg::OnMenuExit)
 END_MESSAGE_MAP()
 
 
@@ -112,7 +114,7 @@ BOOL CPEToolDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-    if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD |
+    if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_BORDER|
         WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS |
         CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
         !m_wndToolBar.LoadToolBar(IDR_TOOLBAR1))
@@ -265,6 +267,7 @@ void CPEToolDlg::OnMenuDoshead()
 void CPEToolDlg::OnMenuFilehead()
 {
 	CFileHeadDlg dlg;
+	dlg.SetFileHead(m_pe.m_pFileHead);
 	dlg.DoModal();
 }
 
@@ -350,4 +353,20 @@ void CPEToolDlg::LoadFile(CString& strPath)
 	m_fileInfoDlg.SetPeFileInfo(&m_pe);
 	m_peInfoDlg.SetPeStruct(&m_pe);
     m_hexDlg.SetHexData((byte*)m_pe.m_pFileMem,m_pe.m_nFileSize);
+}
+
+void CPEToolDlg::OnMenuOpen()
+{
+	CFileDialog dlg(TRUE, NULL, NULL
+		,  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_NOCHANGEDIR, L"EXE(*.exe)|*.exe|DLL(*.dll) |*.dll||");
+	if (dlg.DoModal() == IDOK)
+	{
+		CString strPath  = dlg.GetPathName();
+		LoadFile(strPath);
+	}
+}
+
+void CPEToolDlg::OnMenuExit()
+{
+	PostQuitMessage(0);
 }

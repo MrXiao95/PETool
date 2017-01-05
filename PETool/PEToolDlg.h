@@ -55,4 +55,7 @@ private:
 	CPEInfoDlg m_peInfoDlg;
 	CHexDlg m_hexDlg;
 	CPE m_pe;
+public:
+	afx_msg void OnMenuOpen();
+	afx_msg void OnMenuExit();
 };

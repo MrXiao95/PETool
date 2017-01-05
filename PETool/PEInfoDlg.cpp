@@ -71,4 +71,3 @@ void CPEInfoDlg::SetPeStruct(CPE *pe)
 {
 
 }
-
