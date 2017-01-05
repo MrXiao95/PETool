@@ -5,6 +5,7 @@
 #include "PETool.h"
 #include "FileInfoDlg.h"
 #include "afxdialogex.h"
+
 static CString g_strSubSystem[15] = 
 { L"未知的子系统"
 , L"不需要子系统（如驱动程序）"
@@ -21,6 +22,7 @@ static CString g_strSubSystem[15] =
 , L"EFI运行时间驱动"
 , L"EFI只读存储器"
 , L"X-Box" };
+
 // CFileInfoDlg 对话框
 
 IMPLEMENT_DYNAMIC(CFileInfoDlg, CDialogEx)

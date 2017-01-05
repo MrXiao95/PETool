@@ -7,6 +7,7 @@
 #include "PEToolDlg.h"
 #include "afxdialogex.h"
 #include "FileHeadDlg.h"
+#include "DosHeaderDlg.h"
 #include <string>
 using namespace std;
 
@@ -260,7 +261,9 @@ BOOL CPEToolDlg::OnToolTipNotify(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
 //DOS头
 void CPEToolDlg::OnMenuDoshead()
 {
-	MessageBox(L"DOS头");
+	CDosHeaderDlg dlg;
+	dlg.SetDosHeder(m_pe.m_pDosHead);
+	dlg.DoModal();
 }
 
 //标准PE头

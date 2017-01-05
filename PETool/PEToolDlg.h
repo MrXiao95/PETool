@@ -46,6 +46,9 @@ public:
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnMenuWebsite();
+	afx_msg void OnMenuOpen();
+	afx_msg void OnMenuExit();
+
 private:
 	void LoadFile(CString& strPath);
 private:
@@ -55,7 +58,4 @@ private:
 	CPEInfoDlg m_peInfoDlg;
 	CHexDlg m_hexDlg;
 	CPE m_pe;
-public:
-	afx_msg void OnMenuOpen();
-	afx_msg void OnMenuExit();
 };

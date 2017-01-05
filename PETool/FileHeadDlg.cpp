@@ -81,6 +81,4 @@ void CFileHeadDlg::ShowFileHead()
 	m_strNumberOfSymbols.Format(L"%08x", m_pFileHead->NumberOfSymbols);
 	m_strSizeOfOptHeader.Format(L"%04x", m_pFileHead->SizeOfOptionalHeader);
 	m_strCharateristics.Format(L"%04x", m_pFileHead->Characteristics);
-
-	//UpdateData(FALSE);
 }
