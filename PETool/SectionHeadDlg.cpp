@@ -21,7 +21,7 @@ CSectionHeadDlg::CSectionHeadDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_DLG_SECTIONHEAD, pParent)
 	, m_pSectionHead(NULL)
 	, m_nSection(0)
-	, m_strNumber(_T(""))
+	, m_strNumber(_T("ÊýÄ¿£º0"))
 {
 
 }
