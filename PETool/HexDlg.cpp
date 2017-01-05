@@ -24,7 +24,7 @@ CHexDlg::~CHexDlg()
 void CHexDlg::DoDataExchange(CDataExchange* pDX)
 {
     CDialogEx::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_EDIT1, m_editHex);
+    DDX_Control(pDX, IDC_EDITHEX, m_editHex);
 }
 
 

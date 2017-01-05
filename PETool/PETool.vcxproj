@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Definition.h" />
+    <ClInclude Include="DosHeaderDlg.h" />
     <ClInclude Include="FileHeadDlg.h" />
     <ClInclude Include="FileInfoDlg.h" />
     <ClInclude Include="HexDlg.h" />
@@ -115,6 +116,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DosHeaderDlg.cpp" />
     <ClCompile Include="FileHeadDlg.cpp" />
     <ClCompile Include="FileInfoDlg.cpp" />
     <ClCompile Include="HexDlg.cpp" />
