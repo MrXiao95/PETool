@@ -135,27 +135,21 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 	WORD dwSubsystem;
 	if (pe->m_pOptionalHeader32)
 	{ 
-		strTmp.Format(L"基地址                   ：0x%08x\r\n", pe->m_pOptionalHeader32->ImageBase);
-		strTmp.MakeUpper();
+		strTmp.Format(L"基地址                   ：0x%08X\r\n", pe->m_pOptionalHeader32->ImageBase);
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点EP(RVA)      ：0x%08x\r\n", pe->m_pOptionalHeader32->AddressOfEntryPoint);
-		strTmp.MakeUpper();
+		strTmp.Format(L"入口点EP(RVA)      ：0x%08X\r\n", pe->m_pOptionalHeader32->AddressOfEntryPoint);
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点OEP(RAW)  ：0x%08x\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader32->AddressOfEntryPoint));
-		strTmp.MakeUpper();
+		strTmp.Format(L"入口点OEP(RAW)  ：0x%08X\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader32->AddressOfEntryPoint));
 		dwSubsystem = pe->m_pOptionalHeader32->Subsystem;
 		m_strFileInfo += strTmp;
 	}
 	else
 	{
-		strTmp.Format(L"基地址                   ：0x%08x\r\n", pe->m_pOptionalHeader64->ImageBase);
-		strTmp.MakeUpper();
+		strTmp.Format(L"基地址                   ：0x%08X\r\n", pe->m_pOptionalHeader64->ImageBase);
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点EP(RVA)      ：0x%08x\r\n", pe->m_pOptionalHeader64->AddressOfEntryPoint);
-		strTmp.MakeUpper();
+		strTmp.Format(L"入口点EP(RVA)      ：0x%08X\r\n", pe->m_pOptionalHeader64->AddressOfEntryPoint);
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点OEP(RAW)  ：0x%08x\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader64->AddressOfEntryPoint));
-		strTmp.MakeUpper();
+		strTmp.Format(L"入口点OEP(RAW)  ：0x%08X\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader64->AddressOfEntryPoint));
 		dwSubsystem = pe->m_pOptionalHeader64->Subsystem;
 		m_strFileInfo += strTmp;
 	}
