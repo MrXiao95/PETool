@@ -59,23 +59,18 @@ void CSectionHeadDlg::ShowSectionHead()
 	{
 		int nRow = m_listSection.InsertItem(LISTNAME, CString(m_pSectionHead[i].Name));
 		CString strTemp;
-		strTemp.Format(L"%08x", m_pSectionHead[i].VirtualAddress);
-		strTemp.MakeUpper();
+		strTemp.Format(L"%08X", m_pSectionHead[i].VirtualAddress);
 		m_listSection.SetItemText(nRow, LISTVA, strTemp);
-		strTemp.Format(L"%08x", m_pSectionHead[i].Misc.VirtualSize);
-		strTemp.MakeUpper();
+		strTemp.Format(L"%08X", m_pSectionHead[i].Misc.VirtualSize);
 		
 		m_listSection.SetItemText(nRow, LISTVSIZE, strTemp);
-		strTemp.Format(L"%08x", m_pSectionHead[i].PointerToRawData);
-		strTemp.MakeUpper();
+		strTemp.Format(L"%08X", m_pSectionHead[i].PointerToRawData);
 		
 		m_listSection.SetItemText(nRow, LISTRAW, strTemp);
-		strTemp.Format(L"%08x", m_pSectionHead[i].SizeOfRawData);
-		strTemp.MakeUpper();
+		strTemp.Format(L"%08X", m_pSectionHead[i].SizeOfRawData);
 		
 		m_listSection.SetItemText(nRow, LISTFSIZE, strTemp);
-		strTemp.Format(L"%08x", m_pSectionHead[i].Characteristics);
-		strTemp.MakeUpper();
+		strTemp.Format(L"%08X", m_pSectionHead[i].Characteristics);
 		m_listSection.SetItemText(nRow, LISTFLAG, strTemp);
 	}
 }
