@@ -26,6 +26,23 @@ public:
 	afx_msg void OnBnClickedCancel();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	void SetPeStruct(CPE *pe);
+
+	void ShowNtHead(const CPE * pe, const byte * pBaseAdd);
+
+	void ShowOptionalHeader(const CPE * pe, const byte * pBaseAdd);
+
+	void ShowOptionalHeader64(const CPE * pe, const byte * pBaseAdd);
+
+	void ShowDataDirectory64(const CPE * pe, const byte * pBaseAdd);
+
+	void ShowOptionalHeader32(const CPE * pe, const byte * pBaseAdd);
+
+	void ShowDataDirectory32(const CPE * pe, const byte * pBaseAdd);
+
+	void ShowDosHead(const CPE * pe, const byte * pBaseAdd);
+
+	void ShowSectionHead(const CPE * pe, const byte * pBaseAdd);
+
 private:
 	CString m_strPeStruct;
 	CEdit m_editPE;
