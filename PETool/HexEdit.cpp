@@ -1180,7 +1180,10 @@ void CHexEdit::SetData(LPBYTE p, int len)
 
 int CHexEdit::GetData(LPBYTE p, int len)
 {
-	memcpy(p, m_pData, min(len, m_length));
+	if (p != NULL)
+	{
+		memcpy(p, m_pData, min(len, m_length));
+	}
 	return m_length;
 }
 

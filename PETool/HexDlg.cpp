@@ -60,6 +60,7 @@ void CHexDlg::OnSize(UINT nType, int cx, int cy)
    {
        CRect rt;
        GetClientRect(rt);
+	   rt.top += 15;
        m_editHex.MoveWindow(rt);
    }
 }
@@ -71,12 +72,27 @@ BOOL CHexDlg::OnInitDialog()
 
     m_editHex.SetOptions(TRUE, TRUE, TRUE, TRUE);
     m_editHex.SetBPR(16);
-
+	if (m_editHex.GetData(NULL,0) != 0)
+	{
+		GetDlgItem(IDC_STATICADD)->ShowWindow(SW_SHOW);
+	}
+	else
+	{
+		GetDlgItem(IDC_STATICADD)->ShowWindow(SW_HIDE);
+	}
     return TRUE;  // return TRUE unless you set the focus to a control
     // 异常:  OCX 属性页应返回 FALSE
 }
 
 void CHexDlg::SetHexData(byte* p, int len)
 {
-    m_editHex.SetData(p, len);
+	if (p != NULL && len > 0)
+	{
+		m_editHex.SetData(p, len);
+		GetDlgItem(IDC_STATICADD)->ShowWindow(SW_SHOW);
+	}
+	else
+	{
+		GetDlgItem(IDC_STATICADD)->ShowWindow(SW_HIDE);
+	}
 }
