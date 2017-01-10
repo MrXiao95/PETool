@@ -10,6 +10,11 @@ public:
 	DWORD RawToRva(DWORD dwRaw);//文件地址转虚拟内存地址
 	void Clear();
 	void Init();
+	DWORD SaveFile(char* szPath, char *szBuf, int nFileSize);
+	void TestAddCodeInNewSec(const char* szPath = NULL);
+	void TestAddCodeInCodeSec(const char* szPath = NULL,int nSec = 0);
+	DWORD FileBufToImageBuf(void **pImageBuf);
+	DWORD ImageBufToFileBuf(void *pImageBuf, void **pFileBuf);
 public:
 	void *m_pFileMem;
 	IMAGE_DOS_HEADER *m_pDosHead;//DOS头
