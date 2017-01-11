@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CDataDirectory ¶Ô»°¿ò
@@ -76,4 +77,7 @@ private:
 
 	CString m_strReserverRva;
 	CString m_strReserverSize;
+	CButton m_btnExport;
+public:
+	afx_msg void OnBnClickedBtnexport();
 };

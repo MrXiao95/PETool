@@ -22,7 +22,6 @@ DWORD CPE::ReadPeFile(const char* szPath)
 	fopen_s(&pFile, szPath, "rb");
 	if (pFile == NULL)
 	{
-		MessageBox(NULL, L"文件打开失败", L"错误", MB_OK);
 		return 0;
 	}
 	fseek(pFile, 0, SEEK_END);

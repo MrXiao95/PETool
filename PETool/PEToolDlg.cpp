@@ -85,6 +85,7 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_COMMAND(IDM_MENU_OPEN, &CPEToolDlg::OnMenuOpen)
 	ON_COMMAND(IDM_MENU_EXIT, &CPEToolDlg::OnMenuExit)
 	ON_COMMAND(IDM_MENU_EXPORTDESCRIPTOR, &CPEToolDlg::OnMenuExportdescriptor)
+	ON_MESSAGE(WM_USER_SHOWEXPORTDIRCTORY,&CPEToolDlg::ShowExportDirctory)
 END_MESSAGE_MAP()
 
 
@@ -118,6 +119,8 @@ BOOL CPEToolDlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
+
+	SetWindowText(MAINWINDOWTITLE);
 
     if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_BORDER|
         WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS |
@@ -317,10 +320,7 @@ void CPEToolDlg::OnMenuSectiontable()
 //导出表
 void CPEToolDlg::OnMenuExportdescriptor()
 {
-	CExportDirectoryDlg dlg;
-	
-	dlg.SetExportDirectory(&m_pe);
-	dlg.DoModal();
+	PostMessage(WM_USER_SHOWEXPORTDIRCTORY);
 }
 
 //导入表
@@ -379,7 +379,13 @@ void CPEToolDlg::OnMenuWebsite()
 void CPEToolDlg::LoadFile(CString& strPath)
 {
 	string sttTmp = CStringA(strPath);
-	m_pe.ReadPeFile(sttTmp.data());
+	if (0 == m_pe.ReadPeFile(sttTmp.data()))
+	{
+		CString strErrMsg;
+		strErrMsg.Format(L"%s \r\n无法打开！请检查文件是否被占用，或者文件是否存在！！！",strPath);
+		MessageBox(strErrMsg);
+		return ;
+	}
 
 	m_fileInfoDlg.SetPeFileInfo(&m_pe);
 	m_peInfoDlg.SetPeStruct(&m_pe);
@@ -402,3 +408,12 @@ void CPEToolDlg::OnMenuExit()
 	PostQuitMessage(0);
 }
 
+LRESULT CPEToolDlg::ShowExportDirctory(WPARAM wParam, LPARAM lParam)
+{
+	CExportDirectoryDlg dlg;
+
+	dlg.SetExportDirectory(&m_pe);
+	dlg.DoModal();
+
+	return 0;
+}

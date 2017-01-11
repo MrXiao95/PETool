@@ -49,7 +49,7 @@ public:
 	afx_msg void OnMenuOpen();
 	afx_msg void OnMenuExit();
 	afx_msg void OnMenuExportdescriptor();
-
+	afx_msg LRESULT ShowExportDirctory(WPARAM wParam, LPARAM lParam);
 private:
 	void LoadFile(CString& strPath);
 private:

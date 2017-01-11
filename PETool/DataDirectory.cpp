@@ -5,7 +5,7 @@
 #include "PETool.h"
 #include "DataDirectory.h"
 #include "afxdialogex.h"
-
+#include "Definition.h"
 
 // CDataDirectory ¶Ô»°¿ò
 
@@ -90,10 +90,12 @@ void CDataDirectory::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDITDELAYIMPORTSIZE, m_strDelayImportSize);
 	DDX_Text(pDX, IDC_EDITCOMSIZE, m_strComSize);
 	DDX_Text(pDX, IDC_EDITRESERVERSIZE, m_strReserverSize);
+	DDX_Control(pDX, IDC_BTNEXPORT, m_btnExport);
 }
 
 
 BEGIN_MESSAGE_MAP(CDataDirectory, CDialogEx)
+	ON_BN_CLICKED(IDC_BTNEXPORT, &CDataDirectory::OnBnClickedBtnexport)
 END_MESSAGE_MAP()
 
 
@@ -121,6 +123,7 @@ void CDataDirectory::ShowDataDirectory()
 {
 	m_strExportRva.Format(L"%08x",m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
 	m_strExportSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size);
+	m_btnExport.EnableWindow(m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
 
 	m_strImportRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
 	m_strImportSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size);
@@ -166,4 +169,17 @@ void CDataDirectory::ShowDataDirectory()
 
 	m_strReserverRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR+1].VirtualAddress);
 	m_strReserverSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR + 1].Size);
+}
+
+void CDataDirectory::OnBnClickedBtnexport()
+{
+	CWnd *pWnd = FindWindow(NULL, MAINWINDOWTITLE);
+	if (pWnd)
+	{
+		pWnd->PostMessage(WM_USER_SHOWEXPORTDIRCTORY);
+	}
+	else
+	{
+		GetParent()->PostMessage(WM_USER_SHOWEXPORTDIRCTORY);
+	}
 }
