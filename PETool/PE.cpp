@@ -97,29 +97,22 @@ void CPE::Init()
 	memset(m_szPath, 0, MAX_PATH);
 }
 
-DWORD CPE::RvaToRaw(DWORD dwRva)
+DWORD CPE::RvaToFoa(DWORD dwRva)
 {
-	DWORD dwRaw = 0;
-	if (m_pOptionalHeader32)
-	{
-		dwRaw = dwRva - m_pOptionalHeader32->BaseOfCode;
-	}
-	else
-	{
-		dwRaw = dwRva - m_pOptionalHeader64->BaseOfCode;
-	}
+	DWORD dwFoa = 0;
+	
 	for (int i = 0; i < m_nSection; i++)
 	{
-		if (dwRaw >= m_pSectionHead[i].VirtualAddress && dwRaw <= m_pSectionHead[i].VirtualAddress + m_pSectionHead[i].SizeOfRawData)
+		if (dwRva >= m_pSectionHead[i].VirtualAddress && dwRva <= m_pSectionHead[i].VirtualAddress + m_pSectionHead[i].SizeOfRawData)
 		{
-			dwRaw += m_pSectionHead[i].PointerToRawData;
+			dwFoa = dwRva - m_pSectionHead[i].VirtualAddress + m_pSectionHead[i].PointerToRawData;
 			break;
 		}
 	}
-	return dwRaw;
+	return dwFoa;
 }
 
-DWORD CPE::RawToRva(DWORD dwRaw)
+DWORD CPE::FoaToRva(DWORD dwFoa)
 {
 	DWORD dwRva = 0;
 	DWORD dwImageBase = 0;
@@ -134,9 +127,9 @@ DWORD CPE::RawToRva(DWORD dwRaw)
 
 	for (int i=0;i<m_nSection;i++)
 	{
-		if (dwRaw>=m_pSectionHead[i].PointerToRawData && dwRaw<=m_pSectionHead[i].PointerToRawData + m_pSectionHead[i].SizeOfRawData)
+		if (dwFoa>=m_pSectionHead[i].PointerToRawData && dwFoa<=m_pSectionHead[i].PointerToRawData + m_pSectionHead[i].SizeOfRawData)
 		{
-			dwRva = dwRaw - m_pSectionHead[i].PointerToRawData + dwImageBase;
+			dwRva = dwFoa - m_pSectionHead[i].PointerToRawData + dwImageBase;
 			break;
 		}
 	}

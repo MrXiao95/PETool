@@ -10,6 +10,7 @@
 #include "DosHeaderDlg.h"
 #include "SectionHeadDlg.h"
 #include "DataDirectory.h"
+#include "ExportDirectoryDlg.h"
 #include <string>
 using namespace std;
 
@@ -83,6 +84,7 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_COMMAND(IDM_MENU_WEBSITE, &CPEToolDlg::OnMenuWebsite)
 	ON_COMMAND(IDM_MENU_OPEN, &CPEToolDlg::OnMenuOpen)
 	ON_COMMAND(IDM_MENU_EXIT, &CPEToolDlg::OnMenuExit)
+	ON_COMMAND(IDM_MENU_EXPORTDESCRIPTOR, &CPEToolDlg::OnMenuExportdescriptor)
 END_MESSAGE_MAP()
 
 
@@ -312,6 +314,15 @@ void CPEToolDlg::OnMenuSectiontable()
 	dlg.DoModal();
 }
 
+//导出表
+void CPEToolDlg::OnMenuExportdescriptor()
+{
+	CExportDirectoryDlg dlg;
+	
+	dlg.SetExportDirectory(&m_pe);
+	dlg.DoModal();
+}
+
 //导入表
 void CPEToolDlg::OnMenuImportdescriptor()
 {
@@ -390,3 +401,4 @@ void CPEToolDlg::OnMenuExit()
 {
 	PostQuitMessage(0);
 }
+

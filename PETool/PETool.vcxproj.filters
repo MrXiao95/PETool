@@ -63,6 +63,9 @@
     <ClInclude Include="DataDirectory.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ExportDirectoryDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PETool.cpp">
@@ -99,6 +102,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DataDirectory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportDirectoryDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

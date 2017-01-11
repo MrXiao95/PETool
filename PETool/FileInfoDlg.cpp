@@ -139,7 +139,7 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 		m_strFileInfo += strTmp;
 		strTmp.Format(L"入口点EP(RVA)      ：0x%08X\r\n", pe->m_pOptionalHeader32->AddressOfEntryPoint);
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点OEP(RAW)  ：0x%08X\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader32->AddressOfEntryPoint));
+		strTmp.Format(L"入口点OEP(RAW)  ：0x%08X\r\n", pe->RvaToFoa(dwEntryPoint = pe->m_pOptionalHeader32->AddressOfEntryPoint));
 		dwSubsystem = pe->m_pOptionalHeader32->Subsystem;
 		m_strFileInfo += strTmp;
 	}
@@ -149,7 +149,7 @@ void CFileInfoDlg::SetPeFileInfo(CPE* pe)
 		m_strFileInfo += strTmp;
 		strTmp.Format(L"入口点EP(RVA)      ：0x%08X\r\n", pe->m_pOptionalHeader64->AddressOfEntryPoint);
 		m_strFileInfo += strTmp;
-		strTmp.Format(L"入口点OEP(RAW)  ：0x%08X\r\n", pe->RvaToRaw(dwEntryPoint = pe->m_pOptionalHeader64->AddressOfEntryPoint));
+		strTmp.Format(L"入口点OEP(RAW)  ：0x%08X\r\n", pe->RvaToFoa(dwEntryPoint = pe->m_pOptionalHeader64->AddressOfEntryPoint));
 		dwSubsystem = pe->m_pOptionalHeader64->Subsystem;
 		m_strFileInfo += strTmp;
 	}

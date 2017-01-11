@@ -577,8 +577,8 @@ void CPEInfoDlg::ShowSectionHead(const CPE * pe, const byte * pBaseAdd)
 	m_strPeStruct += L"------------------------------------------------------------\r\n";
 	for (int i=0;i<pe->m_nSection;i++)
 	{
-		char szName[9] = {0};
-		strcpy_s(szName, 8, (char*)pe->m_pSectionHead[i].Name);
+		char szName[10] = {0};
+		memcpy(szName, (char*)pe->m_pSectionHead[i].Name,8);
 		m_strPeStruct += L"[成员]                   [地址(RAW)]      [数据:RVA]      [说明]\r\n";
 		strTmp.Format(L"Name：                   0x%08X        [%s]        [名称, 长度:8位(16字节)的ASCII码.]\r\n"
 			,(byte*)&pe->m_pSectionHead[i].Name - pBaseAdd,CString(szName));

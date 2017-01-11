@@ -104,6 +104,7 @@
     <ClInclude Include="DataDirectory.h" />
     <ClInclude Include="Definition.h" />
     <ClInclude Include="DosHeaderDlg.h" />
+    <ClInclude Include="ExportDirectoryDlg.h" />
     <ClInclude Include="FileHeadDlg.h" />
     <ClInclude Include="FileInfoDlg.h" />
     <ClInclude Include="HexDlg.h" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="DataDirectory.cpp" />
     <ClCompile Include="DosHeaderDlg.cpp" />
+    <ClCompile Include="ExportDirectoryDlg.cpp" />
     <ClCompile Include="FileHeadDlg.cpp" />
     <ClCompile Include="FileInfoDlg.cpp" />
     <ClCompile Include="HexDlg.cpp" />

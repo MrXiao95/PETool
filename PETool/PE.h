@@ -6,8 +6,8 @@ public:
 	~CPE();
 	DWORD ReadPeFile(const char* szPath);//从文件中读取PE文件
 	void GetPeStruct();//获取PE结构信息
-	DWORD RvaToRaw(DWORD dwRva);//虚拟内存地址转文件地址
-	DWORD RawToRva(DWORD dwRaw);//文件地址转虚拟内存地址
+	DWORD RvaToFoa(DWORD dwRva);//虚拟内存地址转文件地址
+	DWORD FoaToRva(DWORD dwFoa);//文件地址转虚拟内存地址
 	void Clear();
 	void Init();
 	DWORD SaveFile(char* szPath, char *szBuf, int nFileSize);

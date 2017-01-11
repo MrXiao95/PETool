@@ -48,6 +48,7 @@ public:
 	afx_msg void OnMenuWebsite();
 	afx_msg void OnMenuOpen();
 	afx_msg void OnMenuExit();
+	afx_msg void OnMenuExportdescriptor();
 
 private:
 	void LoadFile(CString& strPath);
