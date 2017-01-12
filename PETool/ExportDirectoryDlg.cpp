@@ -15,7 +15,7 @@
 IMPLEMENT_DYNAMIC(CExportDirectoryDlg, CDialogEx)
 
 CExportDirectoryDlg::CExportDirectoryDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(IDD_EXPORTDIRECTORY_DLG, pParent)
+	: CDialogEx(IDD_DLG_EXPORTDIRECTORY, pParent)
 {
 
 }
