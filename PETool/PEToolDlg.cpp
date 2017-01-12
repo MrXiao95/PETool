@@ -11,6 +11,7 @@
 #include "SectionHeadDlg.h"
 #include "DataDirectory.h"
 #include "ExportDirectoryDlg.h"
+#include "OptionalHead.h"
 #include <string>
 using namespace std;
 
@@ -284,8 +285,18 @@ void CPEToolDlg::OnMenuFilehead()
 //可选PE头
 void CPEToolDlg::OnMenuOpthead()
 {
-	MessageBox(L"可选PE头");
+	COptionalHead dlg;
 
+	if (m_pe.m_pOptionalHeader32)
+	{
+		dlg.SetOptionalHead32(m_pe.m_pOptionalHeader32);
+	}
+	else
+	{
+		dlg.SetOptionalHead64(m_pe.m_pOptionalHeader64);
+	}
+
+	dlg.DoModal();
 }
 
 //数据目录表
