@@ -28,6 +28,15 @@ void CExportDirectoryDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LISTFUN, m_listFun);
+	DDX_Text(pDX, IDC_EDITTIME, m_strTime);
+	DDX_Text(pDX, IDC_EDITNAMERVA,m_strNameRav);
+	DDX_Text(pDX, IDC_EDITID,m_strSatartID);
+	DDX_Text(pDX, IDC_EDITFUNNUM,m_strFunCount);
+	DDX_Text(pDX, IDC_EDITNAMENUM,m_strFunCountByName);
+	DDX_Text(pDX, IDC_EDITFUNTABRVA,m_strFunTabRva);
+	DDX_Text(pDX, IDC_EDITNAMETABRVA,m_strNameTabRva);
+	DDX_Text(pDX, IDC_EDITIDTABRAV, m_strIDTabRva);
+	DDX_Text(pDX, IDC_STATICDLLNAME, m_strDLLName);
 }
 
 
@@ -108,6 +117,24 @@ void CExportDirectoryDlg::SetExportDirectory(CPE *pe)
 		dwNameFoa += 4;
 		dwAddressOfNameOrdinals += 2;
 	}
+
+	time_t timeDateStamp = exportDirctory.TimeDateStamp;
+	tm tmBegin;
+	localtime_s(&tmBegin, &timeDateStamp);
+
+	m_strTime.Format(L"%04d.%02d.%02d     %02d:%02d:%02d\r\n"
+		, tmBegin.tm_year + 1900, tmBegin.tm_mon + 1, tmBegin.tm_mday
+		, tmBegin.tm_hour, tmBegin.tm_min, tmBegin.tm_sec);
+
+	m_strNameRav.Format(L"%08X",exportDirctory.Name);
+	m_strSatartID.Format(L"%d",exportDirctory.Base);
+	m_strFunCount.Format(L"%d",exportDirctory.NumberOfFunctions);
+	m_strFunCountByName.Format(L"%d",exportDirctory.NumberOfNames);
+	m_strFunTabRva.Format(L"%08X",exportDirctory.AddressOfFunctions);
+	m_strNameTabRva.Format(L"%08X",exportDirctory.AddressOfNames);
+	m_strIDTabRva.Format(L"%08X",exportDirctory.AddressOfNameOrdinals);
+	char *szDllName = pe->RvaToFoa(exportDirctory.Name) + (char*)pe->m_pFileMem;
+	m_strDLLName.Format(L"%s", CString(szDllName));
 }
 
 void CExportDirectoryDlg::ShowExportDirectory()

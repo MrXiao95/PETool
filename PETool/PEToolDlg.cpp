@@ -291,7 +291,7 @@ void CPEToolDlg::OnMenuOpthead()
 	{
 		dlg.SetOptionalHead32(m_pe.m_pOptionalHeader32);
 	}
-	else
+	else if(m_pe.m_pOptionalHeader64)
 	{
 		dlg.SetOptionalHead64(m_pe.m_pOptionalHeader64);
 	}

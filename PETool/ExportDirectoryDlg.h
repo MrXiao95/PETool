@@ -40,4 +40,13 @@ public:
 private:
 	CListCtrl m_listFun;
 	vector<EXPORTDIRECTORY> m_exportDirectory;
+	CString m_strTime;
+	CString m_strNameRav;
+	CString m_strSatartID;
+	CString m_strFunCount;
+	CString m_strFunCountByName;
+	CString m_strFunTabRva;
+	CString m_strNameTabRva;
+	CString m_strIDTabRva;
+	CString m_strDLLName;
 };
