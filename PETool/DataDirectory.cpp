@@ -97,6 +97,7 @@ void CDataDirectory::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDataDirectory, CDialogEx)
 	ON_BN_CLICKED(IDC_BTNEXPORT, &CDataDirectory::OnBnClickedBtnexport)
 	ON_BN_CLICKED(IDC_BTNRELOC, &CDataDirectory::OnBnClickedBtnreloc)
+	ON_BN_CLICKED(IDC_BTNIMPORT, &CDataDirectory::OnBnClickedBtnimport)
 END_MESSAGE_MAP()
 
 
@@ -128,6 +129,7 @@ void CDataDirectory::ShowDataDirectory()
 
 	m_strImportRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
 	m_strImportSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size);
+	GetDlgItem(IDC_BTNIMPORT)->EnableWindow(m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
 
 	m_strResRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_RESOURCE].VirtualAddress);
 	m_strResSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_RESOURCE].Size);
@@ -197,5 +199,19 @@ void CDataDirectory::OnBnClickedBtnreloc()
 	else
 	{
 		GetParent()->PostMessage(WM_USER_SHOWBASERELOC);
+	}
+}
+
+
+void CDataDirectory::OnBnClickedBtnimport()
+{
+	CWnd *pWnd = FindWindow(NULL, MAINWINDOWTITLE);
+	if (pWnd)
+	{
+		pWnd->PostMessage(WM_USER_SHOWIMPORT);
+	}
+	else
+	{
+		GetParent()->PostMessage(WM_USER_SHOWIMPORT);
 	}
 }

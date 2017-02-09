@@ -110,6 +110,7 @@
     <ClInclude Include="FileInfoDlg.h" />
     <ClInclude Include="HexDlg.h" />
     <ClInclude Include="HexEdit.h" />
+    <ClInclude Include="ImportDescriptor.h" />
     <ClInclude Include="OptionalHead.h" />
     <ClInclude Include="PE.h" />
     <ClInclude Include="PEInfoDlg.h" />
@@ -129,6 +130,7 @@
     <ClCompile Include="FileInfoDlg.cpp" />
     <ClCompile Include="HexDlg.cpp" />
     <ClCompile Include="HexEdit.cpp" />
+    <ClCompile Include="ImportDescriptor.cpp" />
     <ClCompile Include="OptionalHead.cpp" />
     <ClCompile Include="PE.cpp" />
     <ClCompile Include="PEInfoDlg.cpp" />

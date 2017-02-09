@@ -81,4 +81,5 @@ private:
 public:
 	afx_msg void OnBnClickedBtnexport();
 	afx_msg void OnBnClickedBtnreloc();
+	afx_msg void OnBnClickedBtnimport();
 };

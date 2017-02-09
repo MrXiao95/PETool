@@ -72,6 +72,9 @@
     <ClInclude Include="BaseRelocDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ImportDescriptor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PETool.cpp">
@@ -117,6 +120,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BaseRelocDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ImportDescriptor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

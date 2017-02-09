@@ -13,6 +13,7 @@
 #include "ExportDirectoryDlg.h"
 #include "OptionalHead.h"
 #include "BaseRelocDlg.h"
+#include "ImportDescriptor.h"
 #include <string>
 using namespace std;
 
@@ -89,6 +90,7 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_COMMAND(IDM_MENU_EXPORTDESCRIPTOR, &CPEToolDlg::OnMenuExportdescriptor)
 	ON_MESSAGE(WM_USER_SHOWEXPORTDIRCTORY,&CPEToolDlg::ShowExportDirctory)
 	ON_MESSAGE(WM_USER_SHOWBASERELOC, &CPEToolDlg::ShowBaseReloc)
+	ON_MESSAGE(WM_USER_SHOWIMPORT, &CPEToolDlg::ShowImport)
 END_MESSAGE_MAP()
 
 
@@ -339,8 +341,9 @@ void CPEToolDlg::OnMenuExportdescriptor()
 //导入表
 void CPEToolDlg::OnMenuImportdescriptor()
 {
-	MessageBox(L"导入表");
-
+	CImportDescriptor dlg;
+	dlg.SetImportDescriptor(&m_pe);
+	dlg.DoModal();
 }
 
 //调试信息
@@ -436,6 +439,13 @@ LRESULT CPEToolDlg::ShowBaseReloc(WPARAM wParam, LPARAM lParam)
 	CBaseRelocDlg dlg;
 	dlg.SetBaseReloc(&m_pe);
 	dlg.DoModal();
+
+	return 0;
+}
+
+LRESULT CPEToolDlg::ShowImport(WPARAM wParam, LPARAM lParam)
+{
+	OnMenuImportdescriptor();
 
 	return 0;
 }

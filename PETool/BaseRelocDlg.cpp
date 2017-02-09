@@ -117,7 +117,6 @@ void CBaseRelocDlg::SetBaseReloc(CPE *pe)
 
 void CBaseRelocDlg::OnNMClickListsection(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	m_pe->RvaToFoa(0x3194);
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	int nIndex = m_listSection.GetSelectionMark();
 	if (nIndex >= 0 && nIndex < m_baseReloc.size())

@@ -8,6 +8,8 @@
 
 #define WM_USER_SHOWEXPORTDIRCTORY WM_USER + 101
 #define WM_USER_SHOWBASERELOC      WM_USER + 102
+#define WM_USER_SHOWIMPORT         WM_USER + 103
+
 // typedef struct FILEINFO
 // {
 // 	char szPath[MAX_PATH];//ÎÄ¼þÂ·¾¶

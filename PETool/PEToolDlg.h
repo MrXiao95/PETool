@@ -51,6 +51,7 @@ public:
 	afx_msg void OnMenuExportdescriptor();
 	afx_msg LRESULT ShowExportDirctory(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT ShowBaseReloc(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT ShowImport(WPARAM wParam, LPARAM lParam);
 private:
 	void LoadFile(CString& strPath);
 private:
