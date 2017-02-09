@@ -15,6 +15,7 @@ public:
 	void TestAddCodeInCodeSec(const char* szPath = NULL,int nSec = 0);
 	DWORD FileBufToImageBuf(void **pImageBuf);
 	DWORD ImageBufToFileBuf(void *pImageBuf, void **pFileBuf);
+	char* GetSectionNameOfRAV(DWORD rva);
 public:
 	void *m_pFileMem;
 	IMAGE_DOS_HEADER *m_pDosHead;//DOSͷ

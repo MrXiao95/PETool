@@ -96,6 +96,7 @@ void CDataDirectory::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CDataDirectory, CDialogEx)
 	ON_BN_CLICKED(IDC_BTNEXPORT, &CDataDirectory::OnBnClickedBtnexport)
+	ON_BN_CLICKED(IDC_BTNRELOC, &CDataDirectory::OnBnClickedBtnreloc)
 END_MESSAGE_MAP()
 
 
@@ -139,6 +140,7 @@ void CDataDirectory::ShowDataDirectory()
 
 	m_strBaseRelocRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress);
 	m_strBaseRelocSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].Size);
+	GetDlgItem(IDC_BTNRELOC)->EnableWindow(m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
 
 	m_strDebugRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_DEBUG].VirtualAddress);
 	m_strDebugSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_DEBUG].Size);
@@ -167,7 +169,7 @@ void CDataDirectory::ShowDataDirectory()
 	m_strComRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR].VirtualAddress);
 	m_strComSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR].Size);
 
-	m_strReserverRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR+1].VirtualAddress);
+	m_strReserverRva.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR + 1].VirtualAddress);
 	m_strReserverSize.Format(L"%08x", m_pDataDirectory[IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR + 1].Size);
 }
 
@@ -181,5 +183,19 @@ void CDataDirectory::OnBnClickedBtnexport()
 	else
 	{
 		GetParent()->PostMessage(WM_USER_SHOWEXPORTDIRCTORY);
+	}
+}
+
+//显示重定位表
+void CDataDirectory::OnBnClickedBtnreloc()
+{
+	CWnd *pWnd = FindWindow(NULL, MAINWINDOWTITLE);
+	if (pWnd)
+	{
+		pWnd->PostMessage(WM_USER_SHOWBASERELOC);
+	}
+	else
+	{
+		GetParent()->PostMessage(WM_USER_SHOWBASERELOC);
 	}
 }

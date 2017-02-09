@@ -101,6 +101,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseRelocDlg.h" />
     <ClInclude Include="DataDirectory.h" />
     <ClInclude Include="Definition.h" />
     <ClInclude Include="DosHeaderDlg.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseRelocDlg.cpp" />
     <ClCompile Include="DataDirectory.cpp" />
     <ClCompile Include="DosHeaderDlg.cpp" />
     <ClCompile Include="ExportDirectoryDlg.cpp" />

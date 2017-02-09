@@ -12,6 +12,7 @@
 #include "DataDirectory.h"
 #include "ExportDirectoryDlg.h"
 #include "OptionalHead.h"
+#include "BaseRelocDlg.h"
 #include <string>
 using namespace std;
 
@@ -87,6 +88,7 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_COMMAND(IDM_MENU_EXIT, &CPEToolDlg::OnMenuExit)
 	ON_COMMAND(IDM_MENU_EXPORTDESCRIPTOR, &CPEToolDlg::OnMenuExportdescriptor)
 	ON_MESSAGE(WM_USER_SHOWEXPORTDIRCTORY,&CPEToolDlg::ShowExportDirctory)
+	ON_MESSAGE(WM_USER_SHOWBASERELOC, &CPEToolDlg::ShowBaseReloc)
 END_MESSAGE_MAP()
 
 
@@ -424,6 +426,15 @@ LRESULT CPEToolDlg::ShowExportDirctory(WPARAM wParam, LPARAM lParam)
 	CExportDirectoryDlg dlg;
 
 	dlg.SetExportDirectory(&m_pe);
+	dlg.DoModal();
+
+	return 0;
+}
+
+LRESULT CPEToolDlg::ShowBaseReloc(WPARAM wParam, LPARAM lParam)
+{
+	CBaseRelocDlg dlg;
+	dlg.SetBaseReloc(&m_pe);
 	dlg.DoModal();
 
 	return 0;

@@ -69,6 +69,9 @@
     <ClInclude Include="OptionalHead.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BaseRelocDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PETool.cpp">
@@ -111,6 +114,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OptionalHead.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseRelocDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

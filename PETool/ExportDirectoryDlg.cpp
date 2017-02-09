@@ -106,7 +106,7 @@ void CExportDirectoryDlg::SetExportDirectory(CPE *pe)
 	DWORD dwAddressOfNameOrdinals = pe->RvaToFoa(exportDirctory.AddressOfNameOrdinals);
 	DWORD *pFunctions = (DWORD*)((char*)pe->m_pFileMem + pe->RvaToFoa(exportDirctory.AddressOfFunctions));
 	EXPORTDIRECTORY tmp;
-	for (int i=0;i<exportDirctory.NumberOfNames;i++)
+	for (DWORD i=0;i<exportDirctory.NumberOfNames;i++)
 	{
 		DWORD dwTmp = pe->RvaToFoa(*(DWORD*)((char*)pe->m_pFileMem + dwNameFoa));
 		tmp.strName = (char*)pe->m_pFileMem + dwTmp;

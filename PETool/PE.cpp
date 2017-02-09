@@ -255,7 +255,7 @@ void CPE::TestAddCodeInNewSec(const char* szPath)
 	memcpy(pNewSectionHead, pSectionHead, sizeof(IMAGE_SECTION_HEADER));
 	//改节表的内容
 	int nNumberOfSections = pNtHead->FileHeader.NumberOfSections - 1;
-	memcpy(pNewSectionHead->Name, "newSec", 6);
+	memcpy(pNewSectionHead->Name, ".newSec", strlen(".newSec"));
 	pNewSectionHead->Misc.VirtualSize = 4096;
 	pNewSectionHead->PointerToRawData = pSectionHead[nNumberOfSections].PointerToRawData + pSectionHead[nNumberOfSections].SizeOfRawData;
 	pNewSectionHead->SizeOfRawData = 4096;
@@ -376,4 +376,18 @@ DWORD CPE::ImageBufToFileBuf(void *pImageBuf,void **pFileBuf)
 	*pFileBuf = pTmp;
 	pTmp = NULL;
 	return nSize;
+}
+
+char* CPE::GetSectionNameOfRAV(DWORD dwRva)
+{
+	char *szName = "";
+	for (int i = 0; i < m_nSection; i++)
+	{
+		if (dwRva >= m_pSectionHead[i].VirtualAddress && dwRva <= m_pSectionHead[i].VirtualAddress + m_pSectionHead[i].SizeOfRawData)
+		{
+			return (char*)m_pSectionHead[i].Name;
+		}
+	}
+
+	return szName;
 }
