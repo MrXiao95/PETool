@@ -84,17 +84,19 @@ BOOL CImportDescriptor::OnInitDialog()
 	dwStyle |= LVS_EX_GRIDLINES;//网格线（只适用与report风格的listctrl）
 	m_listDll.SetExtendedStyle(dwStyle); //设置扩展风格
 
-	m_listDll.InsertColumn(0, L"DLL Name", LVCFMT_LEFT, 160);
-	m_listDll.InsertColumn(1, L"Original First Thunk", LVCFMT_LEFT, 120);
-	m_listDll.InsertColumn(2, L"Name(RVA)", LVCFMT_LEFT, 120);
-	m_listDll.InsertColumn(3, L"FirstThunk", LVCFMT_LEFT, 120);
+	m_listDll.InsertColumn(0, L"DLL Name", LVCFMT_LEFT, 150);
+	m_listDll.InsertColumn(1, L"Original First Thunk", LVCFMT_LEFT, 110);
+	m_listDll.InsertColumn(2, L"Name(RVA)", LVCFMT_LEFT, 80);
+	m_listDll.InsertColumn(3, L"TimeDateStamp", LVCFMT_LEFT, 90);
+	m_listDll.InsertColumn(4, L"FirstThunk", LVCFMT_LEFT, 100);
 
 	m_listFun.SetExtendedStyle(dwStyle);
-	m_listFun.InsertColumn(0, L"Thunk Rav", LVCFMT_LEFT, 80);
+	m_listFun.InsertColumn(0, L"Thunk Rav", LVCFMT_LEFT, 70);
 	m_listFun.InsertColumn(1, L"Thunk Offset", LVCFMT_LEFT, 80);
 	m_listFun.InsertColumn(2, L"Thunk Value", LVCFMT_LEFT, 80);
-	m_listFun.InsertColumn(3, L"Hint", LVCFMT_LEFT, 80);
-	m_listFun.InsertColumn(4, L"API Name", LVCFMT_LEFT, 200);
+	m_listFun.InsertColumn(3, L"Hint", LVCFMT_LEFT, 60);
+	m_listFun.InsertColumn(4, L"API Name", LVCFMT_LEFT, 160);
+	m_listFun.InsertColumn(5, L"API Address", LVCFMT_LEFT, 80);
 
 	for (int i = 0; i < m_importDescriptor.size(); i++)
 	{
@@ -107,8 +109,10 @@ BOOL CImportDescriptor::OnInitDialog()
 		m_listDll.SetItemText(i, 1, strTmp);
 		strTmp.Format(L"%08X", m_importDescriptor[i].Name);
 		m_listDll.SetItemText(i, 2, strTmp);
-		strTmp.Format(L"%08X", m_importDescriptor[i].FirstThunk);
+		strTmp.Format(L"%X", m_importDescriptor[i].TimeDateStamp);
 		m_listDll.SetItemText(i, 3, strTmp);
+		strTmp.Format(L"%08X", m_importDescriptor[i].FirstThunk);
+		m_listDll.SetItemText(i, 4, strTmp);
 	}
 	return TRUE;  
 }
@@ -122,7 +126,7 @@ void CImportDescriptor::OnNMClickListdll(NMHDR *pNMHDR, LRESULT *pResult)
 	{
 		m_listFun.DeleteAllItems();
 		DWORD dwThunk = m_importDescriptor[nIndex].OriginalFirstThunk;
-		
+		HMODULE h = GetModuleHandle(m_listDll.GetItemText(nIndex, 0));
 		int i = 0;
 		while (true)
 		{
@@ -144,6 +148,16 @@ void CImportDescriptor::OnNMClickListdll(NMHDR *pNMHDR, LRESULT *pResult)
 			char *szName = (char*)m_pe->m_pFileMem + m_pe->RvaToFoa(dwThunkValue+2);
 			strTmp.Format(L"%s", CString(szName));
 			m_listFun.SetItemText(i, 4, strTmp);
+			
+			if (h)
+			{
+				strTmp.Format(L"%08X", GetProcAddress(h, szName));
+			}
+			else
+			{
+				strTmp = L"";
+			}
+			m_listFun.SetItemText(i, 5, strTmp);
 			dwThunk += 4;
 			i++;
 		}
