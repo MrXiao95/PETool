@@ -99,7 +99,10 @@ void CPE::Init()
 DWORD CPE::RvaToFoa(DWORD dwRva)
 {
 	DWORD dwFoa = 0;
-	
+	if (dwRva<m_pSectionHead[0].VirtualAddress)
+	{
+		return dwRva;
+	}
 	for (int i = 0; i < m_nSection; i++)
 	{
 		if (dwRva >= m_pSectionHead[i].VirtualAddress && dwRva <= m_pSectionHead[i].VirtualAddress + m_pSectionHead[i].SizeOfRawData)
@@ -115,6 +118,10 @@ DWORD CPE::FoaToRva(DWORD dwFoa)
 {
 	DWORD dwRva = 0;
 	DWORD dwImageBase = 0;
+	if (dwFoa < m_pSectionHead[0].PointerToRawData)
+	{
+		return dwFoa;
+	}
 	if (m_pOptionalHeader32)
 	{
 		dwImageBase = m_pOptionalHeader32->ImageBase;

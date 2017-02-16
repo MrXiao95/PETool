@@ -14,6 +14,7 @@
 #include "OptionalHead.h"
 #include "BaseRelocDlg.h"
 #include "ImportDescriptor.h"
+#include "BoundImportDlg.h"
 #include <string>
 using namespace std;
 
@@ -91,6 +92,7 @@ BEGIN_MESSAGE_MAP(CPEToolDlg, CDialogEx)
 	ON_MESSAGE(WM_USER_SHOWEXPORTDIRCTORY,&CPEToolDlg::ShowExportDirctory)
 	ON_MESSAGE(WM_USER_SHOWBASERELOC, &CPEToolDlg::ShowBaseReloc)
 	ON_MESSAGE(WM_USER_SHOWIMPORT, &CPEToolDlg::ShowImport)
+	ON_COMMAND(IDM_IMAGE_BOUND_IMPORT, &CPEToolDlg::OnImageBoundImport)
 END_MESSAGE_MAP()
 
 
@@ -329,6 +331,14 @@ void CPEToolDlg::OnMenuSectiontable()
 {
 	CSectionHeadDlg dlg;
 	dlg.SetSetcionHead(m_pe.m_pSectionHead,m_pe.m_nSection);
+	dlg.DoModal();
+}
+
+//绑定导入表
+void CPEToolDlg::OnImageBoundImport()
+{
+	CBoundImportDlg dlg;
+	dlg.SetBoundImport(&m_pe);
 	dlg.DoModal();
 }
 

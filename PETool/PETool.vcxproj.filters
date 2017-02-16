@@ -75,6 +75,9 @@
     <ClInclude Include="ImportDescriptor.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BoundImportDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PETool.cpp">
@@ -123,6 +126,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ImportDescriptor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundImportDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
